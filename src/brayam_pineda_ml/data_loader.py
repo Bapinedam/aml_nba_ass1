@@ -5,7 +5,7 @@ Data loading and preprocessing utilities for NBA draft prediction.
 import os
 import re
 from pathlib import Path
-from typing import Dict, Optional, Union
+from typing import Dict, Optional, Union, Tuple
 
 import numpy as np
 import pandas as pd
@@ -162,7 +162,7 @@ class DataLoader:
         return datasets
     
     def prepare_features(self, X_train: pd.DataFrame, X_val: pd.DataFrame, 
-                        X_test: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+                        X_test: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
         """
         Prepare features by removing non-feature columns and setting up indices.
         
