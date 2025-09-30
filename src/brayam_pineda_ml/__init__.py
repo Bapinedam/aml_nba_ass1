@@ -10,7 +10,10 @@ __email__ = "brayam.pineda@student.uts.edu.au"
 
 from .data_loader import DataLoader, parse_height_to_cm
 from .model_trainer import ModelTrainer
-from .evaluator import ModelEvaluator
+try:
+    from .evaluator import ModelEvaluator
+except ImportError:
+    ModelEvaluator = None
 from .predictor import Predictor
 from .utils import ensure_numeric, calculate_scale_pos_weight
 from .weather_data_processor import WeatherDataProcessor

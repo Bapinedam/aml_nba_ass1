@@ -4,7 +4,12 @@ Model evaluation utilities for NBA draft prediction.
 
 from typing import Optional, Tuple, Union
 
-import matplotlib.pyplot as plt
+try:
+    import matplotlib.pyplot as plt
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    plt = None
 import numpy as np
 import pandas as pd
 from loguru import logger
@@ -66,6 +71,10 @@ class ModelEvaluator:
         roc_auc = auc(fpr, tpr)
         
         # Create plot
+        if not MATPLOTLIB_AVAILABLE:
+            logger.warning("Matplotlib not available. Cannot plot ROC curve.")
+            return fpr, tpr, thresholds
+            
         plt.figure(figsize=(8, 6))
         plt.plot(fpr, tpr, color='darkorange', lw=2, 
                 label=f'ROC curve (AUC = {roc_auc:.4f})')
@@ -156,6 +165,10 @@ class ModelEvaluator:
         y_pred_proba_arr = ensure_numeric(y_pred_proba)
         
         # Create subplots
+        if not MATPLOTLIB_AVAILABLE:
+            logger.warning("Matplotlib not available. Cannot plot probability distribution.")
+            return
+            
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
         
         # Histogram
