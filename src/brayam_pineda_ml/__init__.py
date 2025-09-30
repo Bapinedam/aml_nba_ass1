@@ -1,7 +1,7 @@
 """
 Brayam Pineda ML Package
 
-A machine learning package for NBA draft prediction using LightGBM.
+A machine learning package for NBA draft prediction and weather forecasting using LightGBM and XGBoost.
 """
 
 __version__ = "0.1.0"
@@ -13,6 +13,7 @@ from .model_trainer import ModelTrainer
 from .evaluator import ModelEvaluator
 from .predictor import Predictor
 from .utils import ensure_numeric, calculate_scale_pos_weight
+from .weather_data_processor import WeatherDataProcessor
 
 __all__ = [
     "DataLoader",
@@ -22,4 +23,5 @@ __all__ = [
     "Predictor",
     "ensure_numeric",
     "calculate_scale_pos_weight",
+    "WeatherDataProcessor",
 ]
