@@ -128,12 +128,14 @@ class WeatherDataProcessor:
         logger.info(f"Created classification target '{target_name}' with {len(df)} samples")
         return df
     
-    def add_temporal_features(self, df: pd.DataFrame) -> pd.DataFrame:
+    def add_temporal_features(self, df: pd.DataFrame, keep_columns: List[str] = None) -> pd.DataFrame:
         """
         Add temporal features (year, month, season).
         
         Args:
             df: Input DataFrame
+            keep_columns: Optional list of columns to keep. If provided, only these columns
+                         will be retained along with the new temporal features.
             
         Returns:
             DataFrame with temporal features added
@@ -159,7 +161,20 @@ class WeatherDataProcessor:
                                     categories=["Summer","Autumn","Winter","Spring"],
                                     ordered=True)
         
-        logger.info("Added temporal features: year, month, season")
+        # If keep_columns is specified, filter to only keep those columns plus temporal features
+        if keep_columns is not None:
+            # Ensure we keep the temporal features we just created
+            temporal_features = ["year", "month", "season", "time"]
+            columns_to_keep = list(set(keep_columns + temporal_features))
+            
+            # Filter to only keep specified columns
+            available_columns = [col for col in columns_to_keep if col in df.columns]
+            df = df[available_columns]
+            
+            logger.info(f"Added temporal features and filtered to keep: {available_columns}")
+        else:
+            logger.info("Added temporal features: year, month, season")
+        
         return df
     
     def create_lag_features(self, df: pd.DataFrame, target_col: str, 
@@ -421,7 +436,8 @@ class WeatherDataProcessor:
     
     def process_full_pipeline(self, start_date: str, end_date: str, 
                              task_type: str = "regression", 
-                             target_name: str = None) -> Dict:
+                             target_name: str = None,
+                             keep_columns: List[str] = None) -> Dict:
         """
         Run the complete data processing pipeline.
         
@@ -430,6 +446,8 @@ class WeatherDataProcessor:
             end_date: End date for data fetching
             task_type: Type of task ("regression" or "classification")
             target_name: Name of target column
+            keep_columns: Optional list of columns to keep. If provided, only these columns
+                         will be retained along with the new temporal features.
             
         Returns:
             Dictionary with processed data splits
@@ -447,7 +465,7 @@ class WeatherDataProcessor:
             df = self.create_classification_target(df, target_name)
         
         # Add temporal features
-        df = self.add_temporal_features(df)
+        df = self.add_temporal_features(df, keep_columns=keep_columns)
         
         # Create lag features
         if task_type == "regression":
