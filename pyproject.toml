@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "brayam-pineda-ml"
-version = "0.3.0"
+version = "0.3.1"
 description = "Machine Learning package for NBA draft prediction and weather forecasting using LightGBM and XGBoost"
 authors = [
     { name = "Brayam Alexander Pineda", email = "brayam.pineda@student.uts.edu.au" },

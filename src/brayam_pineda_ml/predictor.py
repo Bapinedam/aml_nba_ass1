@@ -2,7 +2,7 @@
 Prediction utilities for NBA draft prediction models.
 """
 
-from typing import Optional, Union
+from typing import Optional, Union, Tuple
 
 import lightgbm as lgb
 import numpy as np
@@ -99,7 +99,7 @@ class Predictor:
         
         return predictions
     
-    def predict_with_confidence(self, X: Union[pd.DataFrame, np.ndarray]) -> tuple[np.ndarray, np.ndarray]:
+    def predict_with_confidence(self, X: Union[pd.DataFrame, np.ndarray]) -> Tuple[np.ndarray, np.ndarray]:
         """
         Predict probabilities and confidence scores.
         

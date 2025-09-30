@@ -23,7 +23,7 @@ class TestParseHeightToCm:
         """Test date format parsing."""
         assert parse_height_to_cm("1-Jun") == pytest.approx(185.42, rel=1e-2)  # 6'1"
         assert parse_height_to_cm("11-May") == pytest.approx(180.34, rel=1e-2)  # 5'11"
-        assert parse_height_to_cm("3-Mar") == pytest.approx(167.64, rel=1e-2)   # 3'3"
+        assert parse_height_to_cm("3-Mar") == pytest.approx(99.06, rel=1e-2)   # 3'3"
     
     def test_invalid_formats(self):
         """Test invalid height formats."""
@@ -56,11 +56,15 @@ class TestDataLoader:
         with pytest.raises(FileNotFoundError):
             self.data_loader.load_raw_datasets()
     
+    @patch('pathlib.Path.exists')
     @patch('os.listdir')
     @patch('builtins.open')
     @patch('pandas.read_csv')
-    def test_load_raw_datasets_success(self, mock_read_csv, mock_open, mock_listdir):
+    def test_load_raw_datasets_success(self, mock_read_csv, mock_open, mock_listdir, mock_exists):
         """Test successful dataset loading."""
+        # Mock folder existence
+        mock_exists.return_value = True
+        
         # Mock file listing
         mock_listdir.return_value = ['train.csv', 'test.csv', 'metadata.csv']
         

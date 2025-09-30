@@ -2,13 +2,13 @@ from setuptools import setup, find_packages
 
 setup(
     name="brayam-pineda-ml",
-    version="0.3.0",
+    version="0.3.1",
     description="Machine Learning package for NBA draft prediction and weather forecasting using LightGBM and XGBoost",
     author="Brayam Alexander Pineda",
     author_email="brayam.pineda@student.uts.edu.au",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    python_requires=">=3.11.4",
+    python_requires=">=3.8",
     install_requires=[
         "scikit-learn==1.5.1",
         "pandas==2.2.2",
