@@ -1,74 +1,44 @@
-[build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[project]
+[tool.poetry]
 name = "brayam-pineda-ml"
 version = "0.3.1"
 description = "Machine Learning package for NBA draft prediction and weather forecasting using LightGBM and XGBoost"
-authors = [
-    { name = "Brayam Alexander Pineda", email = "brayam.pineda@student.uts.edu.au" },
-]
+authors = ["Brayam Alexander Pineda <brayam.pineda@student.uts.edu.au>"]
 readme = "README.md"
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Topic :: Scientific/Engineering :: Artificial Intelligence",
-    "Topic :: Scientific/Engineering :: Information Analysis",
-]
-requires-python = ">=3.8"
-dependencies = [
-    "scikit-learn>=1.0.0",
-    "pandas>=1.3.0,<2.0.0",
-    "numpy>=1.20.0",
-    "lightgbm>=3.0.0,<4.0.0",
-    "joblib>=1.0.0",
-    "xgboost>=1.5.0",
-    "matplotlib>=3.5.0",
-    "seaborn>=0.11.0",
-    "hyperopt>=0.2.0",
-    "lime>=0.2.0",
-    "wandb>=0.12.0",
-    "loguru>=0.6.0",
-    "tqdm>=4.60.0",
-    "typer>=0.4.0",
-    "python-dotenv>=0.19.0",
-    "requests>=2.25.0",
-]
+packages = [{include = "brayam_pineda_ml", from = "src"}]
 
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0.0",
-    "pytest-cov>=4.0.0",
-    "black>=23.0.0",
-    "ruff>=0.1.0",
-    "mypy>=1.0.0",
-    "jupyter>=1.0.0",
-    "jupyterlab==4.2.3",
-    "ipykernel>=6.0.0",
-    "notebook>=6.0.0",
-]
+[tool.poetry.dependencies]
+python = "^3.8"
+scikit-learn = "^1.0.0"
+pandas = "^1.3.0,<2.0.0"
+numpy = "^1.20.0"
+lightgbm = "^3.0.0,<4.0.0"
+joblib = "^1.0.0"
+xgboost = "^1.5.0"
+matplotlib = "^3.5.0"
+seaborn = "^0.11.0"
+hyperopt = "^0.2.0"
+lime = "^0.2.0"
+wandb = "^0.12.0"
+loguru = "^0.6.0"
+tqdm = "^4.60.0"
+typer = "^0.4.0"
+python-dotenv = "^0.19.0"
+requests = "^2.25.0"
 
-[project.urls]
-Homepage = "https://github.com/yourusername/brayam-pineda-ml"
-Repository = "https://github.com/yourusername/brayam-pineda-ml"
-Documentation = "https://github.com/yourusername/brayam-pineda-ml#readme"
-Issues = "https://github.com/yourusername/brayam-pineda-ml/issues"
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0.0"
+pytest-cov = "^4.0.0"
+black = "^23.0.0"
+ruff = "^0.1.0"
+mypy = "^1.0.0"
+jupyter = "^1.0.0"
+jupyterlab = "4.2.3"
+ipykernel = "^6.0.0"
+notebook = "^6.0.0"
 
-[tool.setuptools.packages.find]
-where = ["src"]
-
-[tool.setuptools.package-data]
-"brayam_pineda_ml" = ["*.json", "*.yaml", "*.yml"]
-
-[tool.setuptools]
-include-package-data = false
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 88
@@ -149,4 +119,3 @@ module = [
     "lime.*",
 ]
 ignore_missing_imports = true
-
